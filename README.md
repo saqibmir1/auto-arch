@@ -17,3 +17,4 @@ cd auto-arch
 chmod +x install1.sh
 ./install1.sh
 ```
+# Note: Edit variables from each script before executing them according to your own preference
