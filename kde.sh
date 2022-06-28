@@ -4,8 +4,8 @@ clear
 
 echo -ne "
 -------------------------------------------------------------------------
-									WECLOME
-			THIS SCRIPT WILL KDE AND ALL THE APPLICATIONS I USE
+				WECLOME
+		THIS SCRIPT WILL KDE AND ALL THE APPLICATIONS I USE
 -------------------------------------------------------------------------
 "
 
