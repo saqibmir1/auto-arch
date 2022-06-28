@@ -1,5 +1,10 @@
 #!/bin/sh
 
+#variables
+rootpartition=/dev/nvme0n1p3
+swappartition=/dev/nvme0n1p2
+bootpartition=/dev/nvme0n1p1
+
 echo -ne "
 -------------------------------------------------------------------------
                         WELCOME TO AUTO-ARCH
@@ -28,12 +33,8 @@ echo -ne "
                       MAKING FILESYSTEMS
 -------------------------------------------------------------------------
 "
-lsblk
-read -p "enter root partition: " rootpartition
 mkfs.ext4 $rootpartition
-read -p "enter swap partition: " swappartition
 mkswap $swappartition
-read -p "enter boot partition: " bootpartition
 mkfs.fat -F 32 $bootpartition
 
 echo -ne "
@@ -58,11 +59,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 #prepare for chroot.sh
 mv chroot.sh /mnt
-mv kde.sh /mnt/home/$username
-mv postinstall.sh /mnt/home/$username
 chmod +x /mnt/chroot.sh
-chmod +x /mnt/home/$username
-chmod +x /mnt/home/$username
 
 clear
 echo "NOW RUN CHROOT.SH FOR FURTHER CONFIGURATION"

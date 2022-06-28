@@ -1,5 +1,10 @@
 #!/bin/sh
 
+#variables
+email=mirsaquib3737@gmail.com
+downloadwalpapers=yes
+deploydotfiles=yes
+
 #performance tweaks and plasma customistion
 
 echo -ne "
@@ -7,10 +12,6 @@ echo -ne "
                       CUSTOMISING PLASMA DESKTOP
 -------------------------------------------------------------------------
 "
-
-read -p "Enter your github emil id: " email
-read -p "Do you want to download a whole bunch of wallpapers: " wallpapers
-
 
 echo "DOING SOME PERFORMANCE TWEAKS"
 balooctl suspend
@@ -22,7 +23,7 @@ echo "INSTALLING SDDM THEME"
 git clone https://github.com/totoro-ghost/sddm-astronaut.git ~/astronaut/
 sudo mv ~/astronaut/ /usr/share/sddm/themes/
 
-if [[ $walpapers = y ]]
+if [[ $downloadwallpapers = yes ]]
 then
     echo "DOWNLOADING WALPAPERS (THIS IS GOING TO TAKE A WHILE)"
     git clone https://saqibmir1/walpapers.git ~/Pictures
@@ -38,28 +39,32 @@ echo -ne "
       		DEPLOYING DOTFILES/ CONFIGURING USER FILES
 -------------------------------------------------------------------------
 "
-echo "CLONING MY DOTFILES FROM GITHUB"
-git clone https://github.com/saqibmir1/dotfiles.git
 
-#home folder
-mv -f ~/dotfiles/.zshrc ~
-mv -f ~/dotfiles/.zprofile ~
-#mv -f ~/dotfiles/.gitconfig ~
-mv -f ~/dotfiles/kde_shortcuts.kksrc ~/.config
+if [[ deploydotfiles =  yes ]]
+then
+    echo "CLONING MY DOTFILES FROM GITHUB"
+    git clone https://github.com/saqibmir1/dotfiles.git
 
-#.config folder
-#mkdir -p ~/.config/nvim
-#mv -f ~/dotfiles/.config/nvim/init.vim ~/.config/nivm
-#touch ~/.config/nvim/shortcuts.vim
+    #home folder
+    v -f ~/dotfiles/.zshrc ~
+    mv -f ~/dotfiles/.zprofile ~
+    #mv -f ~/dotfiles/.gitconfig ~
+    mv -f ~/dotfiles/kde_shortcuts.kksrc ~/.config
 
-#.local/bin folder
-mkdir -p ~/.local/bin
-mv ~/dotfiles/.local/bin/* ~/.local/bin
+    #.config folder
+    #mkdir -p ~/.config/nvim
+    #mv -f ~/dotfiles/.config/nvim/init.vim ~/.config/nivm
+    #touch ~/.config/nvim/shortcuts.vim
 
-#.local/share folder
-mkdir -p ~/.local/share/wall
-mv -f ~/dotfiles/.local/share/konsole/* ~/.local/share/konsole
-mv -f ~/dotfiles/.local/share/wall/* ~/.local/share/wall
+    #.local/bin folder
+    mkdir -p ~/.local/bin
+    mv ~/dotfiles/.local/bin/* ~/.local/bin
+
+    #.local/share folder
+    mkdir -p ~/.local/share/wall
+    mv -f ~/dotfiles/.local/share/konsole/* ~/.local/share/konsole
+    mv -f ~/dotfiles/.local/share/wall/* ~/.local/share/wall
+
 
 #change shell to zsh
 echo "CHANGING SHELL TO ZSH"
@@ -71,11 +76,12 @@ mkdir ~/Code
 mkdir ~/Git
 mkdir ~/Projects
 
-#cleaning home and some packages
+#cleaning
 echo "CLEANING HOME DIRECTORY"
 rm ~/.bash*
 rm -rf ~/dotfiles
 rm -rf ~/yay-bin
+rm -rf ~/auto-arch
 rmdir Templates
 rmdir Public
 sudo pacman -Rns discover
@@ -87,4 +93,8 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 echo "KEY GENERATED"
 
+
+clear
 echo "------------------------ALL DONE-------------------------------"
+echo "       YOU MAY WANT TO REBOOT BEFORE USING THE SYSTEM          "
+echo "---------------------------------------------------------------"

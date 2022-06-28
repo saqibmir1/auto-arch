@@ -2,6 +2,10 @@
 #!/bin/sh
 clear
 
+variables
+game=no
+libreoffice=yes
+
 echo -ne "
 -------------------------------------------------------------------------
 				WECLOME
@@ -22,23 +26,7 @@ echo "executing script in 3  2  1..."
 sleep 1
 clear
 
-#questions and variables
-read -p "Do you plan to play games on this system [y/n]: " game
-read -p "Do you want to install libreoffice [y/n]: " libreoffice
-clear
 
-
-echo -ne "
-The rest of the installation will now be totally automated, so you can sit back and relax.
-It will take some time, but when done, you can relax even more with your complete system.
-Less goooo...
-
-"
-sleep 8
-clear
-#------------------------------------------------------------------------------------------------------------------------------------------------------------
-#-------------------------------------------------actual script----------------------------------------------------------------------------------------------
-#------------------------------------------------------------------------------------------------------------------------------------------------------------
 #preinstall tweeks
 echo -ne "
 -------------------------------------------------------------------------
@@ -116,7 +104,7 @@ done
 
 #gaming
 
-if [ $game = "y" ]; then
+if [ $game = "yes" ]; then
 	sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 	PKGS=(
 
@@ -141,7 +129,7 @@ if [ $game = "y" ]; then
 	done
 
 #office suite
-if [ $libreoffice =  "y" ]; then
+if [ $libreoffice =  "yes" ]; then
 	sudo pacman -S libreoffice-still --noconfirm
 fi
 
