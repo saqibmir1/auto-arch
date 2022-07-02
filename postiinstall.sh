@@ -64,7 +64,7 @@ then
     mkdir -p ~/.local/share/wall
     mv -f ~/dotfiles/.local/share/konsole/* ~/.local/share/konsole
     mv -f ~/dotfiles/.local/share/wall/* ~/.local/share/wall
-
+fi
 
 #change shell to zsh
 echo "CHANGING SHELL TO ZSH"
