@@ -2,9 +2,9 @@
 #!/bin/sh
 clear
 
-variables
+#variables (set yes to install)
 game=no
-libreoffice=yes
+libreoffice=no
 
 echo -ne "
 -------------------------------------------------------------------------
@@ -70,7 +70,6 @@ PKGS=(
 	'zsh'
 	'zsh-syntax-highlighting'
 	'partitionmanager'
-	'discord'
 	'jq'
 	'fzf'
 	'bluedevel'
@@ -82,7 +81,6 @@ PKGS=(
 	'yt-dlp'
 	'wget'
 
-	'ttf-nerd-fonts-symbols' #fonts
 	'noto-fonts-emoji'
 
 	'plasma' #kde
@@ -151,7 +149,6 @@ cd ~
 echo "INSTALLING PACKAGES FROM THE AUR"
 PKGS=(
 
-	'spotify'
 	'ytfzf'
 	'auto-cpufreq'
 
@@ -170,11 +167,14 @@ echo -ne "
                      ENABLING SOYSTEMD SERVICES
 -------------------------------------------------------------------------
 "
-sudo systemctl enable bluetooth.service
+sudo systemctl enable bluetooth
 sudo systemctl enable auto-cpufreq.service
+sudo systemctl enable sddm
 
 
 #finalize and reboot
+curl -LO https://raw.githubusercontent.com/saqibmir1/auto-arch/master/postinstall.sh
+chmod +x ~/postinstall.sh
 clear
 
 echo -ne "

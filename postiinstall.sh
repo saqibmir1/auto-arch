@@ -93,7 +93,7 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 echo "KEY GENERATED"
 
-
+#finalize
 clear
 echo "------------------------ALL DONE-------------------------------"
 echo "       YOU MAY WANT TO REBOOT BEFORE USING THE SYSTEM          "

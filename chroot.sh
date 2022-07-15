@@ -39,10 +39,9 @@ systemctl enable NetworkManager.service
 
 
 #finalize
-pacman -Syu git
-git clone https://github.com/saqibmir1/auto-arch.git /home/$username
-mv /home/$username/auto-arch/kde.sh /home/$username
-mv /home/$username/auto-arch/postinstall.sh /home/$username
+curl -LO https://raw.githubusercontent.com/saqibmir1/auto-arch/master/kde.sh
+mv kde.sh $HOME
+chmod +x $HOME/kde.sh
 echo "Congratulations auto-arch script was executed successfully .You may reboot now "
 echo "NOW umount -a and reboot to start using newly installed system"
 echo -ne "

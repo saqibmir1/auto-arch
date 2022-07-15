@@ -58,6 +58,7 @@ pacstrap /mnt base linux linux-firmware grub efibootmgr networkmanager linux-hea
 genfstab -U /mnt >> /mnt/etc/fstab
 
 #prepare for chroot.sh
+curl -LO https://raw.githubusercontent.com/saqibmir1/auto-arch/master/chroot.sh
 mv chroot.sh /mnt
 chmod +x /mnt/chroot.sh
 
