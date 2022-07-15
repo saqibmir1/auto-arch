@@ -174,7 +174,6 @@ sudo systemctl enable sddm
 
 #finalize and reboot
 curl -LO https://raw.githubusercontent.com/saqibmir1/auto-arch/master/postinstall.sh
-chmod +x ~/postinstall.sh
 clear
 
 echo -ne "
