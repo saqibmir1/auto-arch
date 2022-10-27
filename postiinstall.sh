@@ -26,7 +26,7 @@ sudo mv ~/astronaut/ /usr/share/sddm/themes/
 if [[ $downloadwallpapers = yes ]]
 then
     echo "DOWNLOADING WALPAPERS (THIS IS GOING TO TAKE A WHILE)"
-    git clone https://saqibmir1/walpapers.git ~/Pictures
+    git clone https://github.com/saqibmir1/walpapers.git ~/Pictures
     rm -rf ~/Pictures/walpapers/.git
     rm ~/Pictures/walpapers/README.md
     rm -rf ~/Pictures/walpapers/images
