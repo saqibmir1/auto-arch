@@ -1,0 +1,78 @@
+#!/bin/sh
+
+echo -ne "
+-------------------------------------------------------------------------
+                        WELCOME TO AUTO-ARCH
+-------------------------------------------------------------------------
+"
+echo "Make sure you have partitioned the disk according to the requirements of arch installation."
+
+
+read -p "Do you want to continue [y/n] " ans
+
+if [[ "$ans" == "y" ]]; then
+    echo "LESS GOOOOOOOOOO"
+    sleep 1
+else
+    echo "Exiting script"
+    exit 1
+fi
+
+lsblk
+
+# questions
+read -p "Enter your root partition: " rootpartition
+read -p "Enter your boot partition: " bootpartition
+read -p "Enter your swap partition: " swappartition
+
+#must dos
+timedatectl set-ntp true
+sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 5/" /etc/pacman.conf
+pacman --noconfirm -Sy archlinux-keyring
+clear
+
+#reflector
+echo "If your download speed was slow you can choose the fastest mirrors from reflecror"
+read -p "Do you want to automatically select the fastest mirrors? [y/n]" answer
+if [[ $answer = y ]] ; then
+  echo "Selecting the fastest mirrors"
+  reflector --latest 20 --sort rate --save /etc/pacman.d/mirrorlist --protocol https --download-timeout 5
+fi
+
+#make filesystems
+echo -ne "
+-------------------------------------------------------------------------
+                      MAKING FILESYSTEMS
+-------------------------------------------------------------------------
+"
+mkfs.ext4 $rootpartition
+mkswap $swappartition
+mkfs.fat -F 32 $bootpartition
+
+echo -ne "
+-------------------------------------------------------------------------
+                     MOUNTING FILESYSTEMS
+-------------------------------------------------------------------------
+"
+#mount filesystems
+mount $rootpartition /mnt
+swapon $swappartition
+mkdir -p /mnt/boot/efi
+mount $bootpartition /mnt/boot/efi
+
+#pacstrap and genfstab
+echo -ne "
+-------------------------------------------------------------------------
+                    INSTALLING BASE AND OTHER CORE PACKAGES
+-------------------------------------------------------------------------
+"
+pacstrap /mnt base linux linux-firmware grub efibootmgr networkmanager linux-headers sof-firmware base-devel nano amd-ucode archlinux-keyring
+genfstab -U /mnt >> /mnt/etc/fstab
+
+#prepare for chroot.sh
+curl -LO https://raw.githubusercontent.com/saqibmir1/auto-arch/master/chroot
+mv chroot /mnt/
+
+clear
+echo "NOW RUN CHROOT.SH FOR FURTHER CONFIGURATION"
+arch-chroot /mnt
