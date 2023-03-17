@@ -11,7 +11,6 @@ install a fully functional arch system using shell script
 On the initial prompt, run these commands
 
 ```
-curl -LO https://raw.githubusercontent.com/saqibmir1/auto-arch/master/install1.sh
-./install1.sh
+curl -LO https://raw.githubusercontent.com/saqibmir1/auto-arch/master/install
+./install
 ```
-# Note: Edit variables from each script before executing them according to your own preference
