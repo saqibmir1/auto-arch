@@ -90,8 +90,8 @@ cd ~
 echo "INSTALLING PACKAGES FROM THE AUR"
 PKGS=(
 
-	'auto-cpufreq'
-	'librewolf-bin'
+	'spotify'
+	'cloudfare-warp
 )
 
 for PKG in "${PKGS[@]}"; do
