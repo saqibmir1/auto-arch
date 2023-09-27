@@ -7,6 +7,7 @@ install a fully functional arch system using shell script
 - installs applications that i use on daily basis
 - does some arch and kde tweaking and configurations
 
+
 # How To Use:
 On the initial prompt, run these commands
 
