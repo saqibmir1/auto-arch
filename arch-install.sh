@@ -82,11 +82,15 @@ locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo "KEYMAP=us" > /etc/vconsole.conf
 echo "$hostname" > /etc/hostname
+printf '\033c'
+echo "Enter password for host: "
 passwd
 
 # user
-pacman -S zsh git --needed
+pacman -S zsh git --needed -y
 useradd -m -G wheel -s /bin/zsh $username
+printf '\033c'
+echo "Enter Password for user: "
 passwd $username
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
@@ -106,7 +110,7 @@ sed -i "s/-j2/-j$(nproc)/;/^#MAKEFLAGS/s/^#//" /etc/makepkg.conf
 sudo sed -Ei "s/^#(ParallelDownloads).*/\1 = 5/;/^#Color$/s/#//" /etc/pacman.conf
 
 # finalize
-cd $HOME
+cd /home/$Username
 git clone --depth 1 https://github.com/saqibmir1/hyprland-dotfiles.git
 
 echo "Congratulations auto-arch script was executed successfully .You may reboot now "
