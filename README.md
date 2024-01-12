@@ -14,4 +14,4 @@ curl -LO https://raw.githubusercontent.com/saqibmir1/auto-arch/master/arch-insta
 ./arch-install.sh
 ```
 
-## For installing a fully fledged window manager (hyprland), refer to [my hyprland installation script](https://github.com/saqibmir1/hyprland-dotfiles)
+Note: For installing a fully fledged window manager (hyprland), refer to [my hyprland installation script](https://github.com/saqibmir1/hyprland-dotfiles)
