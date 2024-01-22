@@ -1,5 +1,9 @@
 # AUTO ARCH INSTALLATION SCRIPT #
 #part1
+
+# set the script to exit on error
+set -e
+
 printf '\033c'
 echo -ne "
 -------------------------------------------------------------------------
@@ -13,7 +17,7 @@ read -p "Do you want to continue [y/n] " ans
 
 if [[ "$ans" == "y" ]]; then
     echo "LESS GOOOOOOOOOO"
-    sleep 1
+    sleep 2
 else
     echo "Exiting script"
     exit 1
@@ -39,7 +43,9 @@ if [[ $answer = y ]] ; then
   reflector --latest 20 --sort rate --save /etc/pacman.d/mirrorlist --protocol https --download-timeout 5
 fi
 
+
 # make filesystems
+echo "Making filesystems"
 mkfs.ext4 $rootpartition
 #mkswap $swappartition
 mkfs.fat -F 32 $bootpartition
@@ -53,7 +59,9 @@ mount $bootpartition /mnt/boot/efi
 
 # pacstrap
 echo "Installing Base And Other Packages"
-pacstrap /mnt base linux linux-firmware grub efibootmgr networkmanager linux-headers sof-firmware base-devel nano amd-ucode archlinux-keyring
+if ! pacstrap /mnt base linux linux-firmware grub efibootmgr networkmanager linux-headers sof-firmware base-devel nano amd-ucode archlinux-keyring; then
+  exit 1
+fi
 
 echo "Generating fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -73,8 +81,7 @@ read -p "Enter timezone eg Asia/Kolkata: " timezone
 read -p "Enter disk for grub installation: " grubdisk
 
 # locale, timezone etc
-echo "Configuring Locale, Time Zone, Hostname, Username and Other Things"
-
+echo "Configuring timezone, Clock, Locale, Host, User etc"
 ln -sf /usr/share/zoneinfo/$timezone /etc/localtime
 hwclock --systohc
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
@@ -86,7 +93,7 @@ printf '\033c'
 echo "Enter password for host: "
 passwd
 
-# add user
+# user
 pacman -S zsh git --needed -y
 useradd -m -G wheel -s /bin/zsh $username
 printf '\033c'
