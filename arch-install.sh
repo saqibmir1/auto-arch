@@ -86,7 +86,7 @@ printf '\033c'
 echo "Enter password for host: "
 passwd
 
-# user
+# add user
 pacman -S zsh git --needed -y
 useradd -m -G wheel -s /bin/zsh $username
 printf '\033c'
