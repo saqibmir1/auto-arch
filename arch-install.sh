@@ -12,7 +12,6 @@ echo -ne "
 "
 echo "Make sure you have partitioned the disk according to the requirements of arch installation."
 
-
 read -p "Do you want to continue [y/n] " ans
 
 if [[ "$ans" == "y" ]]; then
@@ -29,6 +28,10 @@ lsblk
 read -p "Enter your root partition: " rootpartition
 read -p "Enter your boot partition: " bootpartition
 read -p "Enter your swap partition: " swappartition
+read -p "Do you want to mount an additional partition? [y/n] " add_part_ans
+if [[ add_part_ans = y ]]; then
+  read -p "Enter the additional partition name: " additionnalpartition
+fi
 
 #must dos
 timedatectl set-ntp true
@@ -37,8 +40,8 @@ clear
 
 #reflector
 echo "If your download speed was slow you can choose the fastest mirrors from reflecror"
-read -p "Do you want to automatically select the fastest mirrors? [y/n]" answer
-if [[ $answer = y ]] ; then
+read -p "Do you want to automatically select the fastest mirrors? [y/n]" reflecror_ans
+if [[ $reflecror_ans = y ]] ; then
   echo "Selecting the fastest mirrors"
   reflector --latest 20 --sort rate --save /etc/pacman.d/mirrorlist --protocol https --download-timeout 5
 fi
@@ -56,6 +59,11 @@ mount $rootpartition /mnt
 swapon $swappartition
 mkdir -p /mnt/boot/efi
 mount $bootpartition /mnt/boot/efi
+
+if [[ add_part_ans = y ]]; then
+  mkdir /mnt/personal
+  mount $additionnalpartition /mnt/personal
+fi
 
 # pacstrap
 echo "Installing Base And Other Packages"
@@ -129,4 +137,5 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 exit
+
 
