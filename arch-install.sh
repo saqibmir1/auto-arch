@@ -28,7 +28,7 @@ lsblk
 # questions
 read -p "Enter your root partition: " rootpartition
 read -p "Enter your boot partition: " bootpartition
-#read -p "Enter your swap partition: " swappartition
+read -p "Enter your swap partition: " swappartition
 
 #must dos
 timedatectl set-ntp true
@@ -47,13 +47,13 @@ fi
 # make filesystems
 echo "Making filesystems"
 mkfs.ext4 $rootpartition
-#mkswap $swappartition
+mkswap $swappartition
 mkfs.fat -F 32 $bootpartition
 
 # mount filesystems
 echo "Mounting FileSystems"
 mount $rootpartition /mnt
-#swapon $swappartition
+swapon $swappartition
 mkdir -p /mnt/boot/efi
 mount $bootpartition /mnt/boot/efi
 
