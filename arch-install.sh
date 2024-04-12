@@ -125,11 +125,8 @@ sed -i "s/-j2/-j$(nproc)/;/^#MAKEFLAGS/s/^#//" /etc/makepkg.conf
 sudo sed -Ei "s/^#(ParallelDownloads).*/\1 = 5/;/^#Color$/s/#//" /etc/pacman.conf
 
 # finalize
-cd /home/$Username
-git clone --depth 1 https://github.com/saqibmir1/hyprland-dotfiles.git
 
 echo "Congratulations auto-arch script was executed successfully .You may reboot now "
-echo "You can now run hyprlland installation script present in your home folder to install hyprland"
 echo "umount -a now (recommended)"
 echo -ne "
 -------------------------------------------------------------------------
@@ -137,5 +134,4 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 exit
-
 
